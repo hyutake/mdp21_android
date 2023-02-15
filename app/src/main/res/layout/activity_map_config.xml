@@ -31,8 +31,7 @@
                     android:paddingStart="5dp"
                     android:textOff="SET START POINT"
                     android:textOn="CANCEL"
-                    android:background="@drawable/border_black_state"
-                    android:drawableStart="@mipmap/dragon"/>
+                    android:background="@drawable/border_black_state" />
 
 
                 <LinearLayout
@@ -60,7 +59,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:scaleType="centerCrop"
                         android:background="@drawable/border_black_state"
-                        app:srcCompat="@mipmap/red_traffic_cone"/>
+                        app:srcCompat="@mipmap/snorlax_smol"/>
 
 
                 </LinearLayout>
@@ -174,7 +173,7 @@
             <ImageView
                 android:layout_width="187dp"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/luigikart"
+                app:srcCompat="@mipmap/snorlax_smol"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"/>
 
