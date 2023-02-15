@@ -28,11 +28,11 @@
             android:paddingTop="10dp">
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="113dp"
+                android:layout_height="85dp"
                 android:layout_marginTop="10dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/mario_face"/>
+                android:src="@drawable/pikachu_icon"/>
 
 
 
@@ -45,7 +45,7 @@
                 android:gravity="center"
                 android:minHeight="?actionBarSize"
                 android:padding="@dimen/appbar_padding"
-                android:text="MDP Group 23"
+                android:text="MDP Group 21"
                 android:textColor="@color/colorBlack"
                 android:textSize="25sp"
                 android:textStyle="bold" />
@@ -57,7 +57,7 @@
                 android:layout_marginStart="190dp"
                 android:adjustViewBounds="true"
                 android:background="@color/white"
-                android:foreground="@drawable/bluetooth_icon"
+                android:foreground="@drawable/bluetooth"
                 android:foregroundGravity="center"
                 android:scaleType="fitXY" />
 

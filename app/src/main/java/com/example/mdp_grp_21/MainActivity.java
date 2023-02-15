@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
                 robotStatusTextView.setText(message.split(":")[1]);
             }
             //ROBOT|5,4,E
-            if(message.contains("Direction")) {
+            if(message.contains("ROBOT")) {
                 String[] cmd = message.split("\\|");
                 String[] sentCoords = cmd[1].split(",");
                 String[] sentDirection = sentCoords[2].split("\\.");

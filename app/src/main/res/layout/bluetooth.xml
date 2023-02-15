@@ -36,7 +36,8 @@
             android:layout_marginTop="100dp"
             android:onClick="toggleButtonScan"
             android:text="Discover"
-            android:backgroundTint="@color/darkRed"/>
+            android:backgroundTint="@color/darkRed"
+            tools:ignore="OnClick" />
 
         <!--            android:background="@drawable/listview_border"-->
 
@@ -91,7 +92,7 @@
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:background="?android:attr/selectableItemBackground"
-            android:foreground="@drawable/arrow_sign" />
+            android:foreground="@drawable/back" />
 
         <TextView
             android:id="@+id/connStatusTextView"
@@ -112,6 +113,6 @@
             android:layout_height="300dp"
             android:layout_below="@id/connStatusTextView"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/mario_bt"></ImageView>
+            android:src="@drawable/pokeball_bt"></ImageView>
 
 </RelativeLayout>
