@@ -177,6 +177,7 @@ public class ControlFragment extends Fragment {
             }
         });
 
+        // TODO: Start Week 8 challenge
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,8 +190,11 @@ public class ControlFragment extends Fragment {
                     timerHandler.removeCallbacks(timerRunnableExplore);
                 }
                 else if (exploreToggleBtn.getText().equals("STOP")) {
+                    // Get String value that represents obstacle configuration
                     String msg = gridMap.getObstacles();
+                    // Send this String over via BT
                     MainActivity.printCoords(msg);
+                    // Start timer
                     MainActivity.stopTimerFlag = false;
                     showToast("Auto Movement/ImageRecog timer start!");
 

@@ -38,7 +38,7 @@ import java.util.UUID;
 
 public class BluetoothSetUp extends AppCompatActivity {
 
-    private static final String TAG = "Debugging Tag";
+    private static final String TAG = "Bluetooth Debug";
 
     private String connStatus;
     BluetoothAdapter mBluetoothAdapter;
@@ -47,8 +47,8 @@ public class BluetoothSetUp extends AppCompatActivity {
     public DeviceListAdapter mNewDeviceListAdapter;
     public DeviceListAdapter mPairedDeviceListAdapter;
     TextView connStatusTextView;
-    ListView lvNewDevices;
-    ListView lvPairedDevices;
+    ListView lvNewDevices;  // otherDevicesListView
+    ListView lvPairedDevices;   // pairedDevicesListView
     Button connectBtn;
     ProgressDialog myDialog;
 
@@ -85,6 +85,7 @@ public class BluetoothSetUp extends AppCompatActivity {
             // Magic here
             try {
                 if (BluetoothConnectionService.BluetoothConnectionStatus == false) {
+                    showLog("Reconnecting...");
                     startBTConnection(mBTDevice, MY_UUID);
                     Toast.makeText(BluetoothSetUp.this, "Reconnection Success", Toast.LENGTH_SHORT).show();
 
@@ -92,6 +93,8 @@ public class BluetoothSetUp extends AppCompatActivity {
                 reconnectionHandler.removeCallbacks(reconnectionRunnable);
                 retryConnection = false;
             } catch (Exception e) {
+                showLog("Reconnection failed");
+                e.printStackTrace();
                 Toast.makeText(BluetoothSetUp.this, "Failed to reconnect, trying in 5 second", Toast.LENGTH_SHORT).show();
             }
         }
@@ -101,21 +104,23 @@ public class BluetoothSetUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bluetooth);
+        setContentView(R.layout.bluetooth_alt);
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
         lvNewDevices = findViewById(R.id.otherDevicesListView);
         lvPairedDevices = findViewById(R.id.pairedDevicesListView);
-
         mNewBTDevices = new ArrayList<>();
         mPairedBTDevices = new ArrayList<>();
 
         connectBtn = findViewById(R.id.connectBtn);
 
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
+        // TODO: Not in use?
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 
+        // Get bluetooth adapter
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
         Switch bluetoothSwitch = findViewById(R.id.bluetoothSwitch);
@@ -523,5 +528,9 @@ public class BluetoothSetUp extends AppCompatActivity {
         } catch(IllegalArgumentException e){
             e.printStackTrace();
         }
+    }
+
+    private void showLog(String message) {
+        Log.d(TAG, message);
     }
 }

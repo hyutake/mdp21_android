@@ -792,6 +792,7 @@ public class GridMap extends View{
     public boolean onTouchEvent(MotionEvent event) {
         Logd("Entering onTouchEvent");
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            // column and row values are BASED ON THE DISPLAYED MAP (but also +1 as it is not 0-indexed)
             int column = (int) (event.getX() / cellSize);
             int row = this.convertRow((int) (event.getY() / cellSize));
             initialColumn = column;
@@ -1432,34 +1433,41 @@ public class GridMap extends View{
         return message;
     }
 
-    // week 8 req to send algo obstacle info
-    //Code edited to remove 0.5
+    // TODO: week 8 req to send algo obstacle info
+    // Returns a string that contains 2 'substrings' of the obstacle information, 1 untranslated 1 translated, separated by '-'
     public String getObstacles() {
         String msg = "ALG|";
         ArrayList<Character> directionArr = new ArrayList<>();
 
         // public void setObstacleCoord(int col, int row) {
         for (int i = 0; i < obstacleCoord.size(); i++) {
-            if (i==obstacleCoord.size()-1) {
-                directionArr.add(imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
-                msg += ((obstacleCoord.get(i)[0]) + ","
-                        + (obstacleCoord.get(i)[1]) + ","
-                        + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
-
-            }
-            else{
-                directionArr.add(imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
-                msg += ((obstacleCoord.get(i)[0]) + ","
-                        + (obstacleCoord.get(i)[1]) + ","
-                        + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0)
-                        + "|");
-            }
+//            if (i==obstacleCoord.size()-1) {
+//                directionArr.add(imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
+//                msg += ((obstacleCoord.get(i)[0]) + ","
+//                        + (obstacleCoord.get(i)[1]) + ","
+//                        + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
+//
+//            }
+//            else{
+//                directionArr.add(imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
+//                msg += ((obstacleCoord.get(i)[0]) + ","
+//                        + (obstacleCoord.get(i)[1]) + ","
+//                        + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0)
+//                        + "|");
+//            }
+            // Store JUST THE DIRECTION of the obstacle
+            directionArr.add(imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
+            msg += ((obstacleCoord.get(i)[0]) + ","
+                    + (obstacleCoord.get(i)[1]) + ","
+                    + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0));
+            if(i < obstacleCoord.size()-1) msg += "|";
         }
 
         //Translation Message to Algo
         msg+="-";
         msg+="ALG|";
 
+        // Store the coordinates of each obstacle
         ArrayList<int[]> coordlist = new ArrayList<>();
 
         for (int i = 0; i<obstacleCoord.size(); i++){
@@ -1469,23 +1477,28 @@ public class GridMap extends View{
             coordlist.add(newCoord);
         }
 
+        // TODO: There's only 1 protocol... so its redundant
         ArrayList<int[]>translateCoords = translateCoord(coordlist,0);
 
 
         for (int i = 0; i < translateCoords.size(); i++){
-            if (i ==  translateCoords.size()-1){
-                msg += ((translateCoords.get(i)[1]) + ","
-                        + (translateCoords.get(i)[0]) + ","
-                        + directionArr.get(i));
-
-
-            }
-            else{
-                msg += ((translateCoords.get(i)[1]) + ","
-                        + (translateCoords.get(i)[0]) + ","
-                        + directionArr.get(i)
-                        + "|");
-            }
+//            if (i ==  translateCoords.size()-1){
+//                msg += ((translateCoords.get(i)[1]) + ","
+//                        + (translateCoords.get(i)[0]) + ","
+//                        + directionArr.get(i));
+//
+//
+//            }
+//            else{
+//                msg += ((translateCoords.get(i)[1]) + ","
+//                        + (translateCoords.get(i)[0]) + ","
+//                        + directionArr.get(i)
+//                        + "|");
+//            }
+            msg += ((translateCoords.get(i)[1]) + ","
+                    + (translateCoords.get(i)[0]) + ","
+                    + directionArr.get(i));
+            if(i < translateCoords.size()-1) msg += "|";
         }
 
         msg += "\n";

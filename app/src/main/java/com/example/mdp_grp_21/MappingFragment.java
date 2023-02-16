@@ -176,20 +176,21 @@ public class MappingFragment extends Fragment {
             }
         });
 
+        // To place obstacles
         obstacleImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showLog("Clicked obstacleImageBtn");
 
-                if (!gridMap.getSetObstacleStatus()) {
+                if (!gridMap.getSetObstacleStatus()) {  // if setObstacleStatus is false
                     showToast("Please plot obstacles");
                     gridMap.setSetObstacleStatus(true);
                     gridMap.toggleCheckedBtn("obstacleImageBtn");
                 }
-                else if (gridMap.getSetObstacleStatus()) {
+                else if (gridMap.getSetObstacleStatus()) {  // if setObstacleStatus is true
                     gridMap.setSetObstacleStatus(false);
                 }
-
+                // disable the other on touch functions
                 changeObstacleSwitch.setChecked(false);
                 dragSwitch.setChecked(false);
                 showLog("obstacle status = " + gridMap.getSetObstacleStatus());

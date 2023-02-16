@@ -168,10 +168,13 @@ public class MainActivity extends AppCompatActivity {
         showLog("Displaying Coords untranslated and translated");
         String[] strArr = message.split("-",2);
 
+        // Translated ver is sent
         if (BluetoothConnectionService.BluetoothConnectionStatus == true){
             byte[] bytes = strArr[1].getBytes(Charset.defaultCharset());
             BluetoothConnectionService.write(bytes);
         }
+
+        // Display both untranslated and translated coordinates on CHAT (for debugging)
         refreshMessageReceivedNS("Untranslated Coordinates: " + strArr[0] + "\n");
         refreshMessageReceivedNS("Translated Coordinates: "+strArr[1]);
         showLog("Exiting printCoords");
@@ -262,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
             if (message.contains("STATUS")) {
                 robotStatusTextView.setText(message.split(":")[1]);
             }
-            //ROBOT|5,4,E
+            //ROBOT|5,4,EAST
             if(message.contains("ROBOT")) {
                 String[] cmd = message.split("\\|");
                 String[] sentCoords = cmd[1].split(",");
