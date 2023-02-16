@@ -18,7 +18,7 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/pikachu_icon"
-        android:label="MDP_Grp_23"
+        android:label="MDP Group21"
         android:roundIcon="@drawable/pikachu_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.MDP_Grp_23">

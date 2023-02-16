@@ -85,7 +85,6 @@
                     android:paddingEnd="7dp"
                     android:text="Save Map"
                     android:background="@drawable/border_black_state"
-                    android:drawableStart="@mipmap/stormfly"
                     app:backgroundTint="@color/darkRed"/>
 
 
