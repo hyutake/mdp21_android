@@ -382,7 +382,7 @@ public class GridMap extends View{
                 case "up":
                     //This makes the coordinates adjustable instead of static
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_up_resting, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.poke_up, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
@@ -390,7 +390,7 @@ public class GridMap extends View{
                     break;
                 case "down":
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_down_resting, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.poke_down, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
@@ -398,7 +398,7 @@ public class GridMap extends View{
                     break;
                 case "right":
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_right_resting, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.poke_right, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
@@ -407,7 +407,7 @@ public class GridMap extends View{
                     break;
                 case "left":
                     op.inMutable = true;
-                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.arrow_direction_left_resting, op);
+                    bm =BitmapFactory.decodeResource(getResources(),R.drawable.poke_left, op);
                     mapscalable = Bitmap.createScaledBitmap(bm, 51,51, true);
                     xCoord =cells[curCoord[0] - 1][20 - androidRowCoord].startX;
                     yCoord = cells[curCoord[0]][20 - androidRowCoord - 1].startY;
