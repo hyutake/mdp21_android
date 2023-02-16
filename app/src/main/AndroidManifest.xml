@@ -21,13 +21,12 @@
         android:label="MDP Group21"
         android:roundIcon="@drawable/pikachu_icon"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MDP_Grp_23">
+        android:theme="@style/Theme.MDP_Grp_21">
         <activity
             android:name="com.example.mdp_grp_21.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
