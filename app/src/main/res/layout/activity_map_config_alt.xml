@@ -64,44 +64,46 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/resetBtn"
+                <LinearLayout
                     android:layout_width="140dp"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
-                    android:paddingStart="5dp"
-                    android:text="Reset Map"
-                    android:background="@drawable/border_black_state"
-                    app:backgroundTint="@color/darkRed"
-                    />
-
-
-
-                <Button
-                    android:id="@+id/saveBtn"
-                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
-                    android:paddingEnd="7dp"
-                    android:text="Save Map"
-                    android:background="@drawable/border_black_state"
-                    app:backgroundTint="@color/darkRed"/>
+                    android:orientation="horizontal">>
+
+                    <ImageButton
+                        android:id="@+id/save_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/save_btn"
+                        />
+
+                    <ImageButton
+                        android:id="@+id/load_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="8dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/load_btn"
+                        />
+
+                    <ImageButton
+                        android:id="@+id/reset_btn"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginLeft="8dp"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/reset_btn"
+                        />
+                </LinearLayout>
 
 
-                <Button
-                    android:id="@+id/loadBtn"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="15dp"
-                    android:paddingStart="5dp"
-                    android:text="Load Map"
-                    android:background="@drawable/border_black_state"
-                    app:backgroundTint="@color/darkRed"/>
 
-<!--                android:drawableLeft="@mipmap/two_head_dragon"-->
+
+                <!--                android:drawableLeft="@mipmap/two_head_dragon"-->
             </LinearLayout>
         </LinearLayout>
 

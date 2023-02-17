@@ -135,6 +135,8 @@ public class BluetoothSetUp extends AppCompatActivity {
         IntentFilter filter2 = new IntentFilter("ConnectionStatus");
         LocalBroadcastManager.getInstance(this).registerReceiver(mBroadcastReceiver5, filter2);
 
+//        checkBTPermissions(); // might help with the 1st time crashing when clicking 'Scan'
+
         lvNewDevices.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
