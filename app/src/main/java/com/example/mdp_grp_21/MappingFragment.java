@@ -23,7 +23,8 @@ public class MappingFragment extends Fragment {
     SharedPreferences mapPref;
     private static SharedPreferences.Editor editor;
 
-    Button resetMapBtn, updateButton, saveMapObstacle, loadMapObstacle;
+    Button updateButton;
+    ImageButton resetMapBtn, saveMapObstacle, loadMapObstacle;
     ImageButton directionChangeImageBtn, obstacleImageBtn;
     ToggleButton setStartPointToggleBtn;
     GridMap gridMap;
@@ -46,7 +47,7 @@ public class MappingFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_map_config, container,  false);
+        View root = inflater.inflate(R.layout.activity_map_config_alt, container,  false);
 
         gridMap = MainActivity.getGridMap();
         final DirectionsFragment directionFragment = new DirectionsFragment();
