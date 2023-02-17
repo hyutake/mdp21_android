@@ -73,7 +73,7 @@
                     android:paddingStart="5dp"
                     android:text="Reset Map"
                     android:background="@drawable/border_black_state"
-                    app:backgroundTint="@color/darkRed"
+                    app:backgroundTint="@color/colorYellow"
                     />
 
 
@@ -87,7 +87,7 @@
                     android:paddingEnd="7dp"
                     android:text="Save Map"
                     android:background="@drawable/border_black_state"
-                    app:backgroundTint="@color/darkRed"/>
+                    app:backgroundTint="@color/colorYellow"/>
 
 
                 <Button
@@ -99,7 +99,7 @@
                     android:paddingStart="5dp"
                     android:text="Load Map"
                     android:background="@drawable/border_black_state"
-                    app:backgroundTint="@color/darkRed"/>
+                    app:backgroundTint="@color/colorYellow"/>
 
 <!--                android:drawableLeft="@mipmap/two_head_dragon"-->
             </LinearLayout>
