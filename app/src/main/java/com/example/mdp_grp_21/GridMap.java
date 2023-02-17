@@ -819,6 +819,7 @@ public class GridMap extends View{
                 this.startDrag(null, dragShadowBuilder, null, 0);
             }
 
+            // TODO: Fix bug where changing obst sets id by default to nil
             // start change obstacle
             if (MappingFragment.changeObstacleStatus) {
                 if (!((1 <= initialColumn && initialColumn <= 20)
