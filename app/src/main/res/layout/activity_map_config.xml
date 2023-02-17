@@ -167,7 +167,7 @@
                 android:paddingEnd="10dp"
                 android:text="Preload Defaults"
                 android:background="@drawable/border_black_state"
-                app:backgroundTint="@color/darkRed"/>
+                app:backgroundTint="@color/colorYellow"/>
 
             <ImageView
                 android:layout_width="187dp"
