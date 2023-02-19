@@ -102,14 +102,13 @@ public class MappingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showLog("Clicked setStartPointToggleBtn");
-                if (setStartPointToggleBtn.getText().equals("STARTING POINT"))
-                    showToast("Cancelled selecting starting point");
-                else if (setStartPointToggleBtn.getText().equals("CANCEL")) {
+                if (setStartPointToggleBtn.getText().equals("SET START POINT"))
+                    showToast("Cancelled select starting point");
+                else {
                     showToast("Please select starting point");
                     gridMap.setStartCoordStatus(true);
                     gridMap.toggleCheckedBtn("setStartPointToggleBtn");
-                } else
-                    showToast("Please select manual mode");
+                }
                 showLog("Exiting setStartPointToggleBtn");
             }
         });
@@ -127,6 +126,7 @@ public class MappingFragment extends Fragment {
                 getObsPos = GridMap.saveObstacleList();
                 editor.putString("maps",getObsPos);
                 editor.commit();
+                showToast("Saved map");
             }
         });
 
@@ -135,8 +135,7 @@ public class MappingFragment extends Fragment {
             public void onClick(View view) {
                 mapPref = getContext().getSharedPreferences("Shared Preferences", Context.MODE_PRIVATE);
                 String obsPos = mapPref.getString("maps","");
-                if(obsPos.equals("")){}
-                else{
+                if(!obsPos.equals("")){
                     String[] obstaclePosition = obsPos.split("\\|");
                     for (String s : obstaclePosition) {
                         String[] coords = s.split(",");
@@ -158,11 +157,14 @@ public class MappingFragment extends Fragment {
                             default:
                                 direction = "";
                         }
+                        // recall that coordinates are saved as {col, row} since it is = {x, y}, but the Lists of String arrays take [row][col] instead
                         gridMap.imageBearings.get(Integer.parseInt(coords[1]))[Integer.parseInt(coords[0])] = direction;
                     }
                     gridMap.invalidate();
                     showLog("Exiting Load Button");
+                    showToast("Loaded saved map");
                 }
+                showToast("Empty saved map!");
             }
         });
 
