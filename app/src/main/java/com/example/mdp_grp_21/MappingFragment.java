@@ -116,6 +116,7 @@ public class MappingFragment extends Fragment {
         saveMapObstacle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showLog("Clicked saveMapObstacle");
                 String getObsPos = "";
                 mapPref = getContext().getSharedPreferences("Shared Preferences", Context.MODE_PRIVATE);
                 editor = mapPref.edit();
@@ -133,13 +134,15 @@ public class MappingFragment extends Fragment {
         loadMapObstacle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                showLog("Clicked loadMapObstacle");
                 mapPref = getContext().getSharedPreferences("Shared Preferences", Context.MODE_PRIVATE);
                 String obsPos = mapPref.getString("maps","");
                 if(!obsPos.equals("")){
                     String[] obstaclePosition = obsPos.split("\\|");
                     for (String s : obstaclePosition) {
                         String[] coords = s.split(",");
-                        gridMap.setObstacleCoord(Integer.parseInt(coords[0]) + 1, Integer.parseInt(coords[1]) + 1, "","");
+                        gridMap.setObstacleCoord(Integer.parseInt(coords[0]) + 1, Integer.parseInt(coords[1]) + 1);
+//                        gridMap.setObstacleCoord(Integer.parseInt(coords[0]) + 1, Integer.parseInt(coords[1]) + 1, "","");
                         String direction = "";
                         switch (coords[2]) {
                             case "N":
@@ -157,7 +160,6 @@ public class MappingFragment extends Fragment {
                             default:
                                 direction = "";
                         }
-                        // recall that coordinates are saved as {col, row} since it is = {x, y}, but the Lists of String arrays take [row][col] instead
                         gridMap.imageBearings.get(Integer.parseInt(coords[1]))[Integer.parseInt(coords[0])] = direction;
                     }
                     gridMap.invalidate();
@@ -211,11 +213,16 @@ public class MappingFragment extends Fragment {
                 gridMap.imageBearings.get(14)[7] = "West";
                 gridMap.imageBearings.get(4)[15] = "West";
                 gridMap.imageBearings.get(9)[12] = "East";
-                gridMap.setObstacleCoord(5+1, 9+1, "","");
-                gridMap.setObstacleCoord(15+1, 15+1, "","");
-                gridMap.setObstacleCoord(7+1, 14+1, "","");
-                gridMap.setObstacleCoord(15+1, 4+1, "", "");
-                gridMap.setObstacleCoord(12+1, 9+1, "", "");
+                gridMap.setObstacleCoord(5+1, 9+1);
+                gridMap.setObstacleCoord(15+1, 15+1);
+                gridMap.setObstacleCoord(7+1, 14+1);
+                gridMap.setObstacleCoord(15+1, 4+1);
+                gridMap.setObstacleCoord(12+1, 9+1);
+//                gridMap.setObstacleCoord(5+1, 9+1, "","");
+//                gridMap.setObstacleCoord(15+1, 15+1, "","");
+//                gridMap.setObstacleCoord(7+1, 14+1, "","");
+//                gridMap.setObstacleCoord(15+1, 4+1, "", "");
+//                gridMap.setObstacleCoord(12+1, 9+1, "", "");
                 gridMap.invalidate();
                 showLog("Exiting updateButton");
             }
