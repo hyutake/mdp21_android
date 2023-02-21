@@ -176,9 +176,9 @@
             <ImageView
                 android:layout_width="187dp"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/snorlax_smol"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginLeft="20dp"/>
+                app:srcCompat="@mipmap/snorlax_smol" />
 
         </LinearLayout>
     </LinearLayout>
