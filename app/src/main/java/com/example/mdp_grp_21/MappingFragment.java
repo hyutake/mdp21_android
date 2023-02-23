@@ -40,6 +40,8 @@ public class MappingFragment extends Fragment {
     static String imageBearing="North";
     static boolean dragStatus;
     static boolean changeObstacleStatus;
+    // TODO: To remember if setStartPoint is toggled
+    static boolean setStartPoint;
 
 
     @Override
@@ -67,6 +69,8 @@ public class MappingFragment extends Fragment {
         changeObstacleSwitch = root.findViewById(R.id.changeObstacleSwitch);
         // testing
         emergencyBtn = root.findViewById(R.id.eBtn);
+
+        // TODO: Fix logic with setStartPointToggleBtn, obstacleImageBtn, dragSwitch, changeObstacleSwitch
 
         emergencyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,6 +106,7 @@ public class MappingFragment extends Fragment {
                 showToast("Dragging is " + (isChecked ? "on" : "off"));
                 dragStatus = isChecked;
                 if (dragStatus) {
+                    setStartPoint = false;  // TESTING
                     gridMap.setSetObstacleStatus(false);
                     changeObstacleSwitch.setChecked(false);
                 }
@@ -115,27 +120,29 @@ public class MappingFragment extends Fragment {
                 showToast("Changing Obstacle is " + (isChecked ? "on" : "off"));
                 changeObstacleStatus = isChecked;
                 if (changeObstacleStatus) {
+                    setStartPoint = false;      // TESTING
                     gridMap.setSetObstacleStatus(false);
                     dragSwitch.setChecked(false);
                 }
             }
         });
 
+        // TODO: Need to disable all other on touch function if activated
         setStartPointToggleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showLog("Clicked setStartPointToggleBtn");
+                // 2nd consecutive tap on the toggle btn (logic to handle other buttons being tapped is in gridmap.toggleCheckedBtn())
                 if (setStartPointToggleBtn.getText().equals("SET START POINT")) {
                     showToast("Cancelled select starting point");
                     setStartPointToggleBtn.setBackgroundResource(R.drawable.border_black);
                 }
-                else {
+                else {  // 1st tap on the toggle btn
                     showToast("Please select starting point");
                     gridMap.setStartCoordStatus(true);
                     gridMap.toggleCheckedBtn("setStartPointToggleBtn");
                     setStartPointToggleBtn.setBackgroundResource(R.drawable.border_black_pressed);
                 }
-                showLog("Exiting setStartPointToggleBtn");
             }
         });
 

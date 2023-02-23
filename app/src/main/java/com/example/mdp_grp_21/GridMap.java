@@ -1042,8 +1042,10 @@ public class GridMap extends View{
                     e.printStackTrace();
                 }
                 updateRobotAxis(column, row, direction);
-                if (setStartPointToggleBtn.isChecked())
+                if (setStartPointToggleBtn.isChecked()) {
                     setStartPointToggleBtn.toggle();
+                    setStartPointToggleBtn.setBackgroundResource(R.drawable.border_black);
+                }
                 this.invalidate();
                 return true;
             }
@@ -1099,10 +1101,13 @@ public class GridMap extends View{
             if (setStartPointToggleBtn.isChecked()) {
                 this.setStartCoordStatus(false);
                 setStartPointToggleBtn.toggle();
+                setStartPointToggleBtn.setBackgroundResource(R.drawable.border_black);
             }
         if (!buttonName.equals("obstacleImageBtn"))
-            if (obstacleImageBtn.isEnabled())
+            if (obstacleImageBtn.isEnabled()) {
                 this.setSetObstacleStatus(false);
+                obstacleImageBtn.setBackgroundResource(R.drawable.border_black);
+            }
     }
 
 
