@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -27,6 +28,9 @@ public class MappingFragment extends Fragment {
     ImageButton resetMapBtn, saveMapObstacle, loadMapObstacle;
     ImageButton directionChangeImageBtn, obstacleImageBtn;
     ToggleButton setStartPointToggleBtn;
+    ImageView emergencyBtn; // testing
+    int clicks = 0;
+    final int THRESHOLD = 5;
     GridMap gridMap;
 
     Switch dragSwitch;
@@ -61,6 +65,25 @@ public class MappingFragment extends Fragment {
         loadMapObstacle = root.findViewById(R.id.loadBtn);
         dragSwitch = root.findViewById(R.id.dragSwitch);
         changeObstacleSwitch = root.findViewById(R.id.changeObstacleSwitch);
+        // testing
+        emergencyBtn = root.findViewById(R.id.eBtn);
+
+        emergencyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clicks++;
+                showLog(THRESHOLD - clicks + " more clicks until emergency is triggered");
+                if(clicks >= THRESHOLD) {
+                    // emergency protocol
+                    showToast("MAYDAY MAYDAY");
+
+                    // manual input of obstacles
+
+                    // reset clicks
+                    clicks = 0;
+                }
+            }
+        });
 
 
         resetMapBtn.setOnClickListener(new View.OnClickListener() {
@@ -102,12 +125,15 @@ public class MappingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 showLog("Clicked setStartPointToggleBtn");
-                if (setStartPointToggleBtn.getText().equals("SET START POINT"))
+                if (setStartPointToggleBtn.getText().equals("SET START POINT")) {
                     showToast("Cancelled select starting point");
+                    setStartPointToggleBtn.setBackgroundResource(R.drawable.border_black);
+                }
                 else {
                     showToast("Please select starting point");
                     gridMap.setStartCoordStatus(true);
                     gridMap.toggleCheckedBtn("setStartPointToggleBtn");
+                    setStartPointToggleBtn.setBackgroundResource(R.drawable.border_black_pressed);
                 }
                 showLog("Exiting setStartPointToggleBtn");
             }
@@ -191,9 +217,11 @@ public class MappingFragment extends Fragment {
                     showToast("Please plot obstacles");
                     gridMap.setSetObstacleStatus(true);
                     gridMap.toggleCheckedBtn("obstacleImageBtn");
+                    obstacleImageBtn.setBackgroundResource(R.drawable.border_black_pressed);
                 }
                 else if (gridMap.getSetObstacleStatus()) {  // if setObstacleStatus is true
                     gridMap.setSetObstacleStatus(false);
+                    obstacleImageBtn.setBackgroundResource(R.drawable.border_black);
                 }
                 // disable the other on touch functions
                 changeObstacleSwitch.setChecked(false);

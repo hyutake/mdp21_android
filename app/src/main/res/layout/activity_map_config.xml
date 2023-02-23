@@ -59,7 +59,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         android:scaleType="centerCrop"
                         android:background="@drawable/border_black_state"
-                        app:srcCompat="@mipmap/snorlax_smol"/>
+                        app:srcCompat="@mipmap/snorlax"/>
 
 
                 </LinearLayout>
@@ -174,7 +174,7 @@
             <ImageView
                 android:layout_width="187dp"
                 android:layout_height="wrap_content"
-                app:srcCompat="@mipmap/snorlax_smol"
+                app:srcCompat="@mipmap/snorlax"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="20dp"/>
 

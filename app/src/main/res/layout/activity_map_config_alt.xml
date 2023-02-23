@@ -31,7 +31,7 @@
                     android:paddingStart="5dp"
                     android:textOff="SET START POINT"
                     android:textOn="CANCEL"
-                    android:background="@drawable/border_black_state" />
+                    android:background="@drawable/border_black"/>
 
 
                 <LinearLayout
@@ -46,7 +46,7 @@
                         android:layout_height="50dp"
                         android:layout_marginTop="15dp"
                         android:scaleType="centerCrop"
-                        android:background="@drawable/border_black_state"
+                        android:background="@drawable/border_black"
                         app:srcCompat="@mipmap/compass"/>
 
 
@@ -58,9 +58,8 @@
                         android:layout_marginTop="15dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         android:scaleType="centerCrop"
-                        android:background="@drawable/border_black_state"
-                        app:srcCompat="@mipmap/snorlax_smol"/>
-
+                        android:background="@drawable/border_black"
+                        app:srcCompat="@mipmap/snorlax" />
 
                 </LinearLayout>
 
@@ -174,11 +173,12 @@
                 app:backgroundTint="@color/colorYellow"/>
 
             <ImageView
+                android:id="@+id/eBtn"
                 android:layout_width="187dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="20dp"
-                app:srcCompat="@mipmap/snorlax_smol" />
+                app:srcCompat="@mipmap/snorlax" />
 
         </LinearLayout>
     </LinearLayout>
