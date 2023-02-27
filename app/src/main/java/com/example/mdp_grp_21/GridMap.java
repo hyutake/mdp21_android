@@ -179,8 +179,6 @@ public class GridMap extends View{
                 );
             } else {    // cells[col + 1][19 - row] is an explored obstacle (image has been identified)
                 showLog("drawObstacles: drawing image ID");
-                // denote that the cell is now an image (not vital)
-//                cells[col + 1][19 - row].setType("image");
                 whitePaint.setTextSize(25);
                 canvas.drawText(
                         ITEM_LIST.get(row)[col],
@@ -326,7 +324,7 @@ public class GridMap extends View{
                             cells[x][y].endY,
                             cells[x][y].paint
                     );
-                    // TODO: Find out what the below code does
+                    // TODO: Find out what the below code does (doubt it does anything :/)
 //                    Paint textPaint = new Paint();
 //                    textPaint.setTextSize(20);
 //                    textPaint.setColor(Color.WHITE);
@@ -563,21 +561,22 @@ public class GridMap extends View{
 
     public void setCurCoord(int col, int row, String direction) {
         showLog("Entering setCurCoord");
-        if (row < 1 || row > 19) {
+        if (row < 1 || row > 19) {      // row = [1, 19]
             showLog("y is out of bounds");
             return;
         }
-        if (col > 20 || col < 2) {
+        if (col > 20 || col < 2) {      // col = [2, 20]
             showLog("x is out of bounds");
             return;
         }
+
         curCoord[0] = col;
         curCoord[1] = row;
         this.setRobotDirection(direction);
         this.updateRobotAxis(col, row, direction);
 
         row = this.convertRow(row);
-
+        // cells[col][row] is the BOTTOM LEFT of the 2x2 robot
         for (int x = col - 1; x <= col; x++)
             for (int y = row - 1; y <= row; y++)
                 cells[x][y].setType("robot");
@@ -660,23 +659,6 @@ public class GridMap extends View{
         yAxisTextView.setText(String.valueOf(row-1));
         directionAxisTextView.setText(direction);
     }
-
-//    public void setObstacleCoord(int col, int row, String imageId, String imageBearing) {
-//        showLog("Entering setObstacleCoord");
-//        int[] obstacleCoord = new int[]{col - 1, row - 1};
-//        GridMap.obstacleCoord.add(obstacleCoord);
-//        row = this.convertRow(row);
-//        cells[col][row].setType("obstacle");
-//        showLog("Exiting setObstacleCoord");
-//
-//        int obstacleNumber = GridMap.obstacleCoord.size();
-//
-////        if(imageId == "1")
-////            obstacleNumber -= 1;
-//
-//        // DEBUG //
-//        MainActivity.printMessage("COORD of Obstacle ID " + obstacleNumber + ":" + (col - 1) + "," + (19 - row) + ", Bearing: " + imageBearing);
-//    }
 
     public void setObstacleCoord(int col, int row) {
         showLog("Entering setObstacleCoord");
@@ -848,10 +830,6 @@ public class GridMap extends View{
                 showLog("Drag event failed.");
             }
         }
-//        showLog("initialColumn = " + initialColumn
-//                + ", initialRow = " + initialRow
-//                + "\nendColumn = " + endColumn
-//                + ", endRow = " + endRow);
         this.invalidate();
         return true;
     }
@@ -927,6 +905,7 @@ public class GridMap extends View{
                     ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
                             this.getContext(), R.array.imageBearing_array,
                             android.R.layout.simple_spinner_item);
+                    // TODO: adapter2?
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mBearingSpinner.setAdapter(adapter2);
 
@@ -1403,8 +1382,7 @@ public class GridMap extends View{
             super(v);
         }
 
-        // Defines a callback that sends the drag shadow dimensions and touch point back to the
-        // system.
+        // Defines a callback that sends the drag shadow dimensions and touch point back to the system.
         @Override
         public void onProvideShadowMetrics (Point size, Point touch) {
             // Defines local variables
@@ -1495,7 +1473,6 @@ public class GridMap extends View{
         String translatedMsg = "";
         // split msg by '|'
         String[] msgSections = msg.split("\\|");
-//        ArrayList<int[]> obstList = new ArrayList<>();    // TODO: delete if unnecessary
         for(int i = 1; i < msgSections.length; i++) {   // ignore 1st sub string since its "ALG"
             String[] msgSubSections = msgSections[i].split(",");
             // algoX and algoY are 'related' to (x, y) coordinates on a 0-indexed grid, e.g. (10, 7) in (x, y) = (105, 75) in (algoX, algoY)
@@ -1547,11 +1524,19 @@ public class GridMap extends View{
         String msg = "ALG|";
         int obstId = 0;
         for (int i = 0; i < obstacleCoord.size(); i++) {
-            msg += ((obstacleCoord.get(i)[0]) + ","     // x
-                    + (obstacleCoord.get(i)[1]) + ","   // y
-                    + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0) + ","   // direction
-                    + obstId++);   // obstacle id
-            if(i < obstacleCoord.size()-1) msg += "|";
+            // check if its an obstacle or an image
+            int col = obstacleCoord.get(i)[0];
+            int row = obstacleCoord.get(i)[1];
+            // TODO: Tweak logic to allow for position of obstacles w/o images to also be sent over
+            msg += (col + ","     // x
+                    + row + ","   // y
+                    + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0) + ",");   // direction
+            if(ITEM_LIST.get(row)[col] == "") { // empty ITEM_LIST, but in obstacleCoord => obstacle
+                msg += obstId++;   // obstacle id
+            } else { // ITEM_LIST not empty, but in obstacleCoord => image (or blank obstacle)
+                msg += (-1);    // non-obstacle id
+            }
+            if (i < obstacleCoord.size() - 1) msg += "|";
         }
 
         // Add the translated message to msg

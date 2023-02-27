@@ -30,7 +30,7 @@ public class MappingFragment extends Fragment {
     ToggleButton setStartPointToggleBtn;
     ImageView emergencyBtn; // testing
     int clicks = 0;
-    final int THRESHOLD = 5;
+    final int THRESHOLD = 3;    // no. of clicks before triggering
     GridMap gridMap;
 
     Switch dragSwitch;
@@ -40,8 +40,6 @@ public class MappingFragment extends Fragment {
     static String imageBearing="North";
     static boolean dragStatus;
     static boolean changeObstacleStatus;
-    // TODO: To remember if setStartPoint is toggled
-    static boolean setStartPoint;
 
 
     @Override
@@ -57,6 +55,7 @@ public class MappingFragment extends Fragment {
 
         gridMap = MainActivity.getGridMap();
         final DirectionsFragment directionFragment = new DirectionsFragment();
+        final EmergencyFragment emergencyFragment = new EmergencyFragment();
 
         resetMapBtn = root.findViewById(R.id.resetBtn);
         setStartPointToggleBtn = root.findViewById(R.id.startpointToggleBtn);
@@ -69,9 +68,6 @@ public class MappingFragment extends Fragment {
         changeObstacleSwitch = root.findViewById(R.id.changeObstacleSwitch);
         // testing
         emergencyBtn = root.findViewById(R.id.eBtn);
-
-        // TODO: Fix logic with setStartPointToggleBtn, obstacleImageBtn, dragSwitch, changeObstacleSwitch
-
         emergencyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +78,10 @@ public class MappingFragment extends Fragment {
                     showToast("MAYDAY MAYDAY");
 
                     // manual input of obstacles
+                    showLog("Entered emergencyProtocol");
+                    emergencyFragment.show(getChildFragmentManager(),
+                            "Emergency");
+                    showLog("Exiting emergencyProtocol");
 
                     // reset clicks
                     clicks = 0;
@@ -106,7 +106,6 @@ public class MappingFragment extends Fragment {
                 showToast("Dragging is " + (isChecked ? "on" : "off"));
                 dragStatus = isChecked;
                 if (dragStatus) {
-                    setStartPoint = false;  // TESTING
                     gridMap.setSetObstacleStatus(false);
                     changeObstacleSwitch.setChecked(false);
                 }
@@ -120,7 +119,6 @@ public class MappingFragment extends Fragment {
                 showToast("Changing Obstacle is " + (isChecked ? "on" : "off"));
                 changeObstacleStatus = isChecked;
                 if (changeObstacleStatus) {
-                    setStartPoint = false;      // TESTING
                     gridMap.setSetObstacleStatus(false);
                     dragSwitch.setChecked(false);
                 }

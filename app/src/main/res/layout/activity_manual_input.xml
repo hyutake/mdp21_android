@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -22,10 +23,10 @@
 
     <TextView
         android:id="@+id/xTextView"
-        android:layout_width="140dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="85dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="X: "
         android:textColor="@color/black"
@@ -36,19 +37,18 @@
 
     <Spinner
         android:id="@+id/xDropdownSpinner"
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toEndOf="@+id/xTextView"
         app:layout_constraintTop_toBottomOf="@+id/manualFragmentTitleTextView" />
 
     <TextView
         android:id="@+id/yTextView"
-        android:layout_width="140dp"
+        android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="70dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="Y: "
         android:textColor="@color/black"
@@ -59,10 +59,9 @@
 
     <Spinner
         android:id="@+id/yDropdownSpinner"
-        android:layout_width="50dp"
+        android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toEndOf="@+id/yTextView"
         app:layout_constraintTop_toBottomOf="@+id/manualFragmentTitleTextView" />
 
@@ -70,7 +69,7 @@
         android:id="@+id/directionTextView"
         android:layout_width="140dp"
         android:layout_height="50dp"
-        android:layout_marginStart="112dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="40dp"
         android:gravity="center"
         android:text="Direction: "
@@ -97,7 +96,6 @@
         android:layout_width="140dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:onClick="Save"
         android:text="ADD"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -114,8 +112,8 @@
         android:id="@+id/cancelManualBtn"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="8dp"
         android:onClick="Cancel"
         android:text="CANCEL"
@@ -127,5 +125,15 @@
         android:background="@drawable/border_black_state"
         app:backgroundTint="@color/colorYellow"
         />
+
+    <Switch
+        android:id="@+id/isObstSwitch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:text="Obstacle"
+        app:layout_constraintBottom_toBottomOf="@+id/directionDropdownSpinner"
+        app:layout_constraintStart_toEndOf="@+id/directionDropdownSpinner"
+        app:layout_constraintTop_toTopOf="@+id/directionDropdownSpinner" />
 
 </androidx.constraintlayout.widget.ConstraintLayout >

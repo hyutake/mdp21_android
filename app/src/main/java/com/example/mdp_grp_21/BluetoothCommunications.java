@@ -26,7 +26,7 @@ public class BluetoothCommunications extends Fragment {
 
     SharedPreferences sharedPreferences;
     private static TextView messageReceivedTextView;
-    private EditText typeBoxEditText;
+    private static EditText typeBoxEditText;
     StringBuilder messages;
 
 
@@ -86,6 +86,8 @@ public class BluetoothCommunications extends Fragment {
     public static TextView getMessageReceivedTextView() {
         return messageReceivedTextView;
     }
+
+    public static EditText getTypeBoxEditText() {return typeBoxEditText;}
 
     BroadcastReceiver mReceiver = new BroadcastReceiver() {
         @Override
