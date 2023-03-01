@@ -64,6 +64,8 @@ public class GridMap extends View{
     private static int[] curCoord = new int[]{-1, -1};
     private static int[] oldCoord = new int[]{-1, -1};
     private static ArrayList<int[]> obstacleCoord = new ArrayList<>();
+    // controls whether or not the robot is to be re-drawn upon calling onDraw() after an invalidate()
+    // SHOULD be 'true' upon selecting a start position using SET START POINT btn, and back to false if robot goes out of bounds
     private static boolean canDrawRobot = false;
     private static boolean startCoordStatus = false;
     private static boolean setObstacleStatus = false;
@@ -542,6 +544,7 @@ public class GridMap extends View{
         showLog("Exiting createCell");
     }
 
+    // receives col and row values that are just +1 of the visual col and row value (x & y)
     public void setStartCoord(int col, int row) {
         showLog("Entering setStartCoord");
         startCoord[0] = col;
@@ -559,13 +562,19 @@ public class GridMap extends View{
         return startCoord;
     }
 
+    // both col and row are the +1 values of the DISPLAYED (x,y) coordinates
+    // as a result, col is equivalent to the "col" value to be used in the cells[row][col] array
+    // but row is not - it has to be converted via (20 - row) to get the "row" for the cells[row][col] array
+    // note that curCoord refers to the coordinate of the BOTTOM RIGHT cell of the robot
     public void setCurCoord(int col, int row, String direction) {
         showLog("Entering setCurCoord");
-        if (row < 1 || row > 19) {      // row = [1, 19]
+        // although rows are from 0 to 19, if the row value given is 0 or > 19, the robot will have to be in an invalid position
+        if (row < 1 || row > 19) {
             showLog("y is out of bounds");
             return;
         }
-        if (col > 20 || col < 2) {      // col = [2, 20]
+        // although cols are from 1 to 20, if the col value given is 1 or > 20, the robot will have to be in an invalid position
+        if (col < 2 || col > 20) {
             showLog("x is out of bounds");
             return;
         }
@@ -1131,6 +1140,7 @@ public class GridMap extends View{
         String backupDirection = robotDirection;
 
         // check if got obstacle when moving one grid up before turning in each case
+        // checking for each combination of (current robot facing direction, movement direction)
         switch (robotDirection) {
             case "up":
                 switch (direction) {
@@ -1144,7 +1154,7 @@ public class GridMap extends View{
                         if ((1 < curCoord[1] && curCoord[1] < 19)
                                 && (0 < curCoord[0] && curCoord[0] < 20)) {
                             curCoord[1] += 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[1] -= 1;
                             } else {
@@ -1164,11 +1174,40 @@ public class GridMap extends View{
                         if ((0 < curCoord[1] && curCoord[1] < 19)
                                 && (2 < curCoord[0] && curCoord[0] <= 20)) {
                             curCoord[1] += 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[1] -= 1;
                             } else {
                                 curCoord[0] -= 1;
+                                robotDirection = "left";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                        // testing new direction of movement (facing forward)
+                    case "backleft":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] -= 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] += 1;
+                            } else {
+                                curCoord[0] -= 1;
+                                robotDirection = "right";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                    case "backright":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] -= 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] += 1;
+                            } else {
+                                curCoord[0] += 1;
                                 robotDirection = "left";
                                 validPosition = true;
                             }
@@ -1191,7 +1230,7 @@ public class GridMap extends View{
                         if ((1 < curCoord[1] && curCoord[1] < 20)
                                 && (0 < curCoord[0] && curCoord[0] < 20)) {
                             curCoord[0] += 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[0] -= 1;
                             } else {
@@ -1211,11 +1250,40 @@ public class GridMap extends View{
                         if ((0 < curCoord[1] && curCoord[1] < 19)
                                 && (0 < curCoord[0] && curCoord[0] < 20)) {
                             curCoord[0] += 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[0] -= 1;
                             } else {
                                 curCoord[1] += 1;
+                                robotDirection = "up";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                    // testing new direction of movement (facing right)
+                    case "backleft":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] += 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] -= 1;
+                            } else {
+                                curCoord[0] -= 1;
+                                robotDirection = "down";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                    case "backright":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] -= 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] += 1;
+                            } else {
+                                curCoord[0] -= 1;
                                 robotDirection = "up";
                                 validPosition = true;
                             }
@@ -1237,7 +1305,7 @@ public class GridMap extends View{
                         if ((1 < curCoord[1] && curCoord[1] < 19)
                                 && (2 < curCoord[0] && curCoord[0] <= 20)) {
                             curCoord[1] -= 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[1] += 1;
                             } else {
@@ -1257,11 +1325,40 @@ public class GridMap extends View{
                         if ((1 < curCoord[1] && curCoord[1] < 20)
                                 && (0 < curCoord[0] && curCoord[0] <= 20)) {
                             curCoord[1] -= 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[1] += 1;
                             } else {
                                 curCoord[0] += 1;
+                                robotDirection = "right";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                    // testing new direction of movement (facing down)
+                    case "backleft":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] += 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] -= 1;
+                            } else {
+                                curCoord[0] += 1;
+                                robotDirection = "left";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                    case "backright":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] += 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] -= 1;
+                            } else {
+                                curCoord[0] -= 1;
                                 robotDirection = "right";
                                 validPosition = true;
                             }
@@ -1283,7 +1380,7 @@ public class GridMap extends View{
                         if ((0 < curCoord[1] && curCoord[1] < 19)
                                 && (2 < curCoord[0] && curCoord[0] < 20)) {
                             curCoord[0] -= 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[0] += 1;
                             } else {
@@ -1303,11 +1400,40 @@ public class GridMap extends View{
                         if ((0 < curCoord[1] && curCoord[1] <= 20)
                                 && (2 < curCoord[0] && curCoord[0] < 20)) {
                             curCoord[0] -= 1;
-                            if (checkObstaclesRightInFront(curCoord, obstacleCoord)) {
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
                                 validPosition = false;
                                 curCoord[0] += 1;
                             } else {
                                 curCoord[1] -= 1;
+                                robotDirection = "down";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                    // testing new direction of movement (facing left)
+                    case "backleft":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] -= 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] += 1;
+                            } else {
+                                curCoord[0] += 1;
+                                robotDirection = "up";
+                                validPosition = true;
+                            }
+                        }
+                        break;
+                    case "backright":
+                        if ((1 < curCoord[1] && curCoord[1] < 19)
+                                && (0 < curCoord[0] && curCoord[0] < 20)) {
+                            curCoord[1] += 1;
+                            if (checkForObstacleCollision(curCoord, obstacleCoord)) {
+                                validPosition = false;
+                                curCoord[1] -= 1;
+                            } else {
+                                curCoord[0] += 1;
                                 robotDirection = "down";
                                 validPosition = true;
                             }
@@ -1354,13 +1480,15 @@ public class GridMap extends View{
         showLog("Exiting moveRobot");
     }
 
-    public boolean checkObstaclesRightInFront(int[] coord, List<int[]> obstacles) {
-        showLog("Enter checking for obstacles directly in front");
-        // check obstacle for new position
-        for (int x = coord[0] - 1; x <= coord[0]; x++) {
-            for (int y = coord[1] - 1; y <= coord[1]; y++) {
+    // int[] coord is just curCoord - [col, row] that are +1 of displayed values
+    // List<int[]> obstacles is just obstacleCoord - List of [col, row] for obstacles (directly 1-to-1 as displayed map)
+    public boolean checkForObstacleCollision(int[] coord, List<int[]> obstacles) {
+        showLog("Enter checking for obstacle collision");
+        // checks if there is an obstacle within the 2x2 grid where the robot would be
+        for (int x = coord[0] - 1; x <= coord[0]; x++) {    // (on displayed map, we check) x = col & x = col+1
+            for (int y = coord[1] - 1; y <= coord[1]; y++) {    // (on displayed map, we check) y = row & y = row+1
                 for (int i = 0; i < obstacles.size(); i++) {
-                    showLog("x-1 = " + (x-1) + ", y = " + y);
+                    showLog("x-1 = " + (x-1) + ", y = " + y);   // (x-1) is to zero-index the col value -> x = col-1 & x = col
                     showLog("obstacle.get(" + i + ")[0] = " + obstacles.get(i)[0]
                             + ", obstacle.get(" + i + ")[1] = " + obstacles.get(i)[1]);
                     if (obstacles.get(i)[0] == (x-1) && obstacles.get(i)[1] == y) { // HERE x
@@ -1369,7 +1497,7 @@ public class GridMap extends View{
                 }
             }
         }
-        showLog("Exit checking for obstacles directly in front");
+        showLog("Exit checking for obstacle collision");
         return false;   // false means no obstacles
     }
 

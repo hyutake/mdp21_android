@@ -253,6 +253,7 @@ public class MainActivity extends AppCompatActivity {
     BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            PathTranslator pathTranslator = new PathTranslator(gridMap);
             String message = intent.getStringExtra("receivedMessage");
             showLog("receivedMessage: message --- " + message);
             int[] global_store = gridMap.getCurCoord();
@@ -260,7 +261,6 @@ public class MainActivity extends AppCompatActivity {
             g_coordY = global_store[1];
             ArrayList<String> mapCoord = new ArrayList<>();
 
-            //PLACE HOLDER
             //STATUS:<input>
             if (message.contains("STATUS")) {
                 robotStatusTextView.setText(message.split(":")[1]);

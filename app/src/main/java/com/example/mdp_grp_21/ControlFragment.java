@@ -109,7 +109,8 @@ public class ControlFragment extends Fragment {
                 showLog("Clicked moveForwardImageBtn");
                 if (gridMap.getCanDrawRobot()) {
                     gridMap.moveRobot("forward");
-                    MainActivity.refreshLabel();
+                    MainActivity.refreshLabel();    // update x and y coordinate displayed
+                    // display different statuses depending on validity of robot action
                     if (gridMap.getValidPosition())
                         updateStatus("moving forward");
                     else
