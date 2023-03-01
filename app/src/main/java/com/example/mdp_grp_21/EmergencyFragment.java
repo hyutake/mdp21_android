@@ -160,5 +160,5 @@ public class EmergencyFragment extends DialogFragment {
         Log.d(TAG, message);
     }
 
-    private void showToast(String message) { Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT); }
+    private void showToast(String message) { Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show(); }
 }

@@ -75,7 +75,7 @@ public class MappingFragment extends Fragment {
                 showLog(THRESHOLD - clicks + " more clicks until emergency is triggered");
                 if(clicks >= THRESHOLD) {
                     // emergency protocol
-                    showToast("MAYDAY MAYDAY");
+                    showToast("MAYDAY");
 
                     // manual input of obstacles
                     showLog("Entered emergencyProtocol");
