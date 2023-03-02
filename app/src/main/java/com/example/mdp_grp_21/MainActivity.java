@@ -163,9 +163,10 @@ public class MainActivity extends AppCompatActivity {
         return context.getSharedPreferences("Shared Preferences", Context.MODE_PRIVATE);
     }
 
-//    // Send Coordinates to alg
+    // Send Coordinates to alg
     public static void printCoords(String message){
         showLog("Displaying Coords untranslated and translated");
+        showLog(message);
         String[] strArr = message.split("-",2);
 
         // Translated ver is sent
@@ -595,6 +596,10 @@ public class MainActivity extends AppCompatActivity {
 //                    ControlFragment.timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
 //                }
             }
+            // temp condition: if message isn't blank (need double check w/ RPi side)
+//            if(!message.equals("") || !message.equals("Android")) {
+//                pathTranslator.translatePath(message);
+//            }
         }
     };
 

@@ -9,7 +9,7 @@ public class PathTranslator {
     private static GridMap gridMap;
 
     private static final int CELL_LENGTH = 10;
-    private static final int MILLI_DELAY = 200;    // delay between movement commands = 200ms
+    private static final int MILLI_DELAY = 100;    // delay between movement commands = 200ms
     private static final int TURNING_RADIUS = 33;   // to estimate the cells covered in an executed turn
 
     public PathTranslator() {
@@ -20,10 +20,13 @@ public class PathTranslator {
         this.gridMap = gridMap;
     }
 
-    public static void translatePath(String stmCommand) {
+    public void translatePath(String stmCommand) {
         showLog("Entered translatePath");
         char commandType = stmCommand.charAt(0);
-        int commandValue = Integer.parseInt(stmCommand.substring(1));
+        int commandValue = 0;
+        try {
+            commandValue = Integer.parseInt(stmCommand.substring(1));
+        } catch(Exception e) {}
         int moves = 0;
         switch(commandType) {
             case 'f':   // forward
@@ -50,7 +53,7 @@ public class PathTranslator {
                     }
                 }
                 break;
-            case 'a':   // 90 deg right - I assume that the value will always just be '045'
+            case 'd':   // 90 deg right - I assume that the value will always just be '045'
                 moves = TURNING_RADIUS / CELL_LENGTH;   // floor div. of turning radius against cell len
                 // forward movement
                 for(int i = 0; i < moves - 1; i++) {
@@ -81,7 +84,7 @@ public class PathTranslator {
                     }
                 }
                 break;
-            case 'd':   // 90 deg left - I assume that the value will always just be '045'
+            case 'a':   // 90 deg left - I assume that the value will always just be '045'
                 moves = TURNING_RADIUS / CELL_LENGTH;   // floor div. of turning radius against cell len
                 // forward movement
                 for(int i = 0; i < moves - 1; i++) {
@@ -172,6 +175,14 @@ public class PathTranslator {
                         showLog("InterruptedException occurred when calling Thread.sleep()!");
                         e.printStackTrace();
                     }
+                }
+                break;
+            case 's':   // stop to scan (might be redundant)
+                try {
+                    Thread.sleep(1000);
+                } catch(InterruptedException e) {
+                    showLog("InterruptedException occurred when calling Thread.sleep()!");
+                    e.printStackTrace();
                 }
                 break;
             default:

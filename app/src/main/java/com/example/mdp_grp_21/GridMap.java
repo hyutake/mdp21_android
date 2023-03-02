@@ -680,6 +680,7 @@ public class GridMap extends View{
         int obstacleNumber = GridMap.obstacleCoord.size();
 
         // DEBUG //
+        // TODO: remove debug message for obstacle coord (to test)
         MainActivity.printMessage("COORD of Obstacle ID " + obstacleNumber + ":" + (col - 1) + "," + (19 - row) + ", Bearing: " + imageBearings.get(19 - row)[col - 1]);
     }
 
@@ -1042,6 +1043,7 @@ public class GridMap extends View{
             if (setObstacleStatus) {
                 if ((1 <= row && row <= 20) && (1 <= column && column <= 20)) { // if touch is within the grid
                     // get user input from spinners in MapTabFragment static values
+                    // imageID is "", imageBearing is "North"
                     String imageID = (MappingFragment.imageID).equals("Nil") ?
                             "" : MappingFragment.imageID;
                     String imageBearing = MappingFragment.imageBearing;
@@ -1659,7 +1661,7 @@ public class GridMap extends View{
             msg += (col + ","     // x
                     + row + ","   // y
                     + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0) + ",");   // direction
-            if(ITEM_LIST.get(row)[col] == "") { // empty ITEM_LIST, but in obstacleCoord => obstacle
+            if(ITEM_LIST.get(row)[col].equals("")) { // empty ITEM_LIST, but in obstacleCoord => obstacle
                 msg += obstId++;   // obstacle id
             } else { // ITEM_LIST not empty, but in obstacleCoord => image (or blank obstacle)
                 msg += (-1);    // non-obstacle id

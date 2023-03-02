@@ -215,7 +215,7 @@ public class BluetoothConnectionService {
             inStream = tmpIn;
             outStream = tmpOut;
         }
-
+        // TODO: fix logic
         public void run(){
             byte[] buffer = new byte[1024];
             int bytes;
