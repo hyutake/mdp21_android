@@ -596,10 +596,11 @@ public class MainActivity extends AppCompatActivity {
 //                    ControlFragment.timerHandler.removeCallbacks(ControlFragment.timerRunnableFastest);
 //                }
             }
-            // temp condition: if message isn't blank (need double check w/ RPi side)
-//            if(!message.equals("") || !message.equals("Android")) {
-//                pathTranslator.translatePath(message);
-//            }
+            // temp condition: expects a syntax of PATH|f010
+            if(message.contains("ALG")) {
+                // translate the message AFTER PATH|
+                pathTranslator.translatePath(message.split("\\|")[1]);
+            }
         }
     };
 

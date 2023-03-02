@@ -1661,7 +1661,7 @@ public class GridMap extends View{
             msg += (col + ","     // x
                     + row + ","   // y
                     + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0) + ",");   // direction
-            if(ITEM_LIST.get(row)[col].equals("")) { // empty ITEM_LIST, but in obstacleCoord => obstacle
+            if(ITEM_LIST.get(row)[col] == null || ITEM_LIST.get(row)[col].equals("") || ITEM_LIST.get(row)[col].equals("Nil")) { // ITEM_LIST value is null, but in obstacleCoord => obstacle
                 msg += obstId++;   // obstacle id
             } else { // ITEM_LIST not empty, but in obstacleCoord => image (or blank obstacle)
                 msg += (-1);    // non-obstacle id
