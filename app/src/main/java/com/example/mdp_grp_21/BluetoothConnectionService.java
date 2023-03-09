@@ -215,23 +215,23 @@ public class BluetoothConnectionService {
             inStream = tmpIn;
             outStream = tmpOut;
         }
-        // TODO: fix logic
-        public void run(){
+        // TODO: fix logic if possible (sometimes messages are sent 1 char at a time)
+        public void run() {
             byte[] buffer = new byte[1024];
             int bytes;
 
-            while(true){
+            while (true) {
                 try {
                     bytes = inStream.read(buffer);
                     String incomingMessage = new String(buffer, 0, bytes);
-                    Log.d(TAG, "InputStream: "+ incomingMessage);
+                    Log.d(TAG, "InputStream: " + incomingMessage);
 
                     Intent incomingMessageIntent = new Intent("incomingMessage");
                     incomingMessageIntent.putExtra("receivedMessage", incomingMessage);
 
                     LocalBroadcastManager.getInstance(mContext).sendBroadcast(incomingMessageIntent);
                 } catch (IOException e) {
-                    Log.e(TAG, "Error reading input stream. "+e.getMessage());
+                    Log.e(TAG, "Error reading input stream. " + e.getMessage());
 
                     connectionStatus = new Intent("ConnectionStatus");
                     connectionStatus.putExtra("Status", "disconnected");
@@ -246,7 +246,6 @@ public class BluetoothConnectionService {
                 }
             }
         }
-        //Call this from the main activity to send data to remote device
         public void write(byte[] bytes){
             String text = new String(bytes, Charset.defaultCharset());
             Log.d(TAG, "write: Writing to output stream: "+text);

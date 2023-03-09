@@ -1680,7 +1680,7 @@ public class GridMap extends View{
         showLog("updateIDFromRpi");
         int x = obstacleCoord.get(Integer.parseInt(obstacleID))[0];
         int y = obstacleCoord.get(Integer.parseInt(obstacleID))[1];
-        ITEM_LIST.get(y)[x] = (imageID.equals("-1")) ? "" : imageID;
+        ITEM_LIST.get(y)[x] = (imageID.equals("-1")) ? "NA" : imageID;
         this.invalidate();
         return true;
     }
