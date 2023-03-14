@@ -75,14 +75,17 @@ public class MappingFragment extends Fragment {
                 showLog(THRESHOLD - clicks + " more clicks until emergency is triggered");
                 if(clicks >= THRESHOLD) {
                     // emergency protocol
-                    showToast("MAYDAY");
 
                     // manual input of obstacles
-                    showLog("Entered emergencyProtocol");
-                    emergencyFragment.show(getChildFragmentManager(),
-                            "Emergency");
-                    showLog("Exiting emergencyProtocol");
+//                    showLog("Entered emergencyProtocol");
+//                    emergencyFragment.show(getChildFragmentManager(),
+//                            "Emergency");
+//                    showLog("Exiting emergencyProtocol");
 
+                    // new protocol: to track robot or not
+                    MainActivity.toggleTrackRobot();
+                    showToast("trackRobot: " + MainActivity.getTrackRobot());
+                    MainActivity.refreshMessageReceivedNS("trackRobot: " + MainActivity.getTrackRobot());
                     // reset clicks
                     clicks = 0;
                 }

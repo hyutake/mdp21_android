@@ -55,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
     public static boolean stopTimerFlag = false;
     public static boolean stopWk9TimerFlag = false;
 
+    public static boolean trackRobot = false;
+
     private int g_coordX;
     private int g_coordY;
 
@@ -152,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
     public static ImageButton getRightBtn() { return rightBtn; }
     public static TextView getBluetoothStatus() { return bluetoothStatus; }
     public static TextView getConnectedDevice() { return bluetoothDevice; }
+    public static boolean getTrackRobot() { return trackRobot; }
+    public static void toggleTrackRobot() { trackRobot = !trackRobot; }
 
 
     public static void sharedPreferences() {
@@ -301,8 +305,9 @@ public class MainActivity extends AppCompatActivity {
             // Expects a syntax of e.g. Algo|f010
             if(message.contains("Algo")) {
                 // translate the message after Algo|
-//                pathTranslator.translatePath(message.split("\\|")[1]);
-                pathTranslator.altTranslation(message.split("\\|")[1]);
+                if(trackRobot)
+                    pathTranslator.translatePath(message.split("\\|")[1]);
+//                pathTranslator.altTranslation(message.split("\\|")[1]);
             }
         }
     };

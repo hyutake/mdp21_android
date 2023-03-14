@@ -159,8 +159,6 @@ public class GridMap extends View{
         showLog("Exiting onDraw");
     }
 
-    // TODO: Get rid of "useless" nested for loop - DONE
-    // TODO: Check that there are no errors/bugs
     // draws obstacle cells whenever map refreshes
     private void drawObstacles(Canvas canvas) {
         showLog("Entering drawObstacles");
@@ -326,17 +324,6 @@ public class GridMap extends View{
                             cells[x][y].endY,
                             cells[x][y].paint
                     );
-                    // TODO: Find out what the below code does (doubt it does anything :/)
-//                    Paint textPaint = new Paint();
-//                    textPaint.setTextSize(20);
-//                    textPaint.setColor(Color.WHITE);
-//                    textPaint.setTextAlign(Paint.Align.CENTER);
-//                    canvas.drawText(
-//                            String.valueOf(cells[x][y].getId()),
-//                            (cells[x][y].startX+cells[x][y].endX)/2,
-//                            cells[x][y].endY + (cells[x][y].startY-cells[x][y].endY)/4,
-//                            textPaint
-//                    );
                 }
         showLog("Exiting drawIndividualCell");
     }
@@ -915,8 +902,7 @@ public class GridMap extends View{
                     ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(
                             this.getContext(), R.array.imageBearing_array,
                             android.R.layout.simple_spinner_item);
-                    // TODO: adapter2?
-                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mBearingSpinner.setAdapter(adapter2);
 
                     // start at current id and bearing
