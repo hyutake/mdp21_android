@@ -229,10 +229,26 @@ public class ControlFragment extends Fragment {
                 }
                 else if (fastestToggleBtn.getText().equals("STOP")) {
                     showToast("Fastest car timer start!");
+                    // TODO: settle comms protocol w/ rpi
                     try {
-//                        MainActivity.printMessage("STM|Start")
                         refreshMessageReceivedNS("START\n");
-                        MainActivity.printMessage("{\"forward_to\":\"STM\",\"message\":\"Start\"}");
+                        // for more specific messages - delete if not needed
+//                        switch(MappingFragment.path) {
+//                            case "LL":
+//                                MainActivity.printMessage("STM|LL");
+//                                break;
+//                            case "LR":
+//                                MainActivity.printMessage("STM|LR");
+//                                break;
+//                            case "RL":
+//                                MainActivity.printMessage("STM|RL");
+//                                break;
+//                            case "RR":
+//                                MainActivity.printMessage("STM|RR");
+//                                break;
+//                        }
+                        MainActivity.printMessage("STM|" + MappingFragment.path);
+//                        MainActivity.printMessage("{\"forward_to\":\"STM\",\"message\":\"Start\"}");
                     } catch (Exception e) {
                         showLog(e.getMessage());
                     }

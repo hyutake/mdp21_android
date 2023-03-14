@@ -174,11 +174,11 @@
 
             <ImageView
                 android:id="@+id/eBtn"
-                android:layout_width="187dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_gravity="center"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_marginTop="20dp"
-                app:srcCompat="@mipmap/snorlax" />
+                android:src="@drawable/snor_0"/>
 
         </LinearLayout>
     </LinearLayout>

@@ -30,7 +30,7 @@ public class MappingFragment extends Fragment {
     ToggleButton setStartPointToggleBtn;
     ImageView emergencyBtn; // testing
     int clicks = 0;
-    final int THRESHOLD = 3;    // no. of clicks before triggering
+    final int THRESHOLD = 4;    // no. of clicks before triggering
     GridMap gridMap;
 
     Switch dragSwitch;
@@ -38,6 +38,7 @@ public class MappingFragment extends Fragment {
 
     static String imageID="";
     static String imageBearing="North";
+    static String path="LL";
     static boolean dragStatus;
     static boolean changeObstacleStatus;
 
@@ -68,27 +69,53 @@ public class MappingFragment extends Fragment {
         changeObstacleSwitch = root.findViewById(R.id.changeObstacleSwitch);
         // testing
         emergencyBtn = root.findViewById(R.id.eBtn);
+        // for hidden functionalities
         emergencyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                clicks++;
-                showLog(THRESHOLD - clicks + " more clicks until emergency is triggered");
-                if(clicks >= THRESHOLD) {
+                clicks = (clicks + 1) % THRESHOLD;
+                showLog("Click count: " + clicks);
+                switch(clicks) {
+                    case 0:
+                        emergencyBtn.setImageDrawable(getResources().getDrawable(R.drawable.snor_0));
+                        path = "LL";
+                        showLog("Set eBtn to snor_0!");
+                        break;
+                    case 1:
+                        emergencyBtn.setImageDrawable(getResources().getDrawable(R.drawable.snor_1));
+                        path = "LR";
+                        showLog("Set eBtn to snor_1!");
+                        break;
+                    case 2:
+                        emergencyBtn.setImageDrawable(getResources().getDrawable(R.drawable.snor_2));
+                        path = "RL";
+                        showLog("Set eBtn to snor_2!");
+                        break;
+                    case 3:
+                        emergencyBtn.setImageDrawable(getResources().getDrawable(R.drawable.snor_3));
+                        path = "RR";
+                        showLog("Set eBtn to snor_3!");
+                        break;
+                    default:    // should NOT occur
+                        showLog("Click count error!!");
+                }
+                MainActivity.refreshMessageReceivedNS(path);
+//                if(clicks >= THRESHOLD) {
                     // emergency protocol
 
-                    // manual input of obstacles
+                    // manual input of obstacles - quite shit tbh, removed
 //                    showLog("Entered emergencyProtocol");
 //                    emergencyFragment.show(getChildFragmentManager(),
 //                            "Emergency");
 //                    showLog("Exiting emergencyProtocol");
 
                     // new protocol: to track robot or not
-                    MainActivity.toggleTrackRobot();
-                    showToast("trackRobot: " + MainActivity.getTrackRobot());
-                    MainActivity.refreshMessageReceivedNS("trackRobot: " + MainActivity.getTrackRobot());
+//                    MainActivity.toggleTrackRobot();
+//                    showToast("trackRobot: " + MainActivity.getTrackRobot());
+//                    MainActivity.refreshMessageReceivedNS("trackRobot: " + MainActivity.getTrackRobot());
                     // reset clicks
-                    clicks = 0;
-                }
+//                    clicks = 0;
+//                }
             }
         });
 
