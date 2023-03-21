@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
     public static ImageButton getRightBtn() { return rightBtn; }
     public static TextView getBluetoothStatus() { return bluetoothStatus; }
     public static TextView getConnectedDevice() { return bluetoothDevice; }
-    // For week 8
+    // For week 8 only
     public static boolean getTrackRobot() { return trackRobot; }
     public static void toggleTrackRobot() { trackRobot = !trackRobot; }
 
@@ -251,10 +251,10 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-  //     message handler
-  //     alg sends x,y,robotDirection,movementAction
-  //     alg sends ALG,<obstacle id>
-  //   rpi sends RPI,<image id>
+    // Message handler (Receiving)
+    // RPi relays the EXACT SAME stm commands sent by algo back to android: Starts with "Algo|"
+    // RPi sends the image id as "TARGET~<obID>~<ImValue>"
+    // Other specific strings are to clear checklist
     BroadcastReceiver messageReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -270,7 +270,7 @@ public class MainActivity extends AppCompatActivity {
             if (message.contains("STATUS")) {
                 robotStatusTextView.setText(message.split(":")[1]);
             }
-            //ROBOT|5,4,EAST
+            //ROBOT|5,4,EAST (Early version of updating robot position via comms)
             if(message.contains("ROBOT")) {
                 String[] cmd = message.split("\\|");
                 String[] sentCoords = cmd[1].split(",");
@@ -307,46 +307,10 @@ public class MainActivity extends AppCompatActivity {
                 // translate the message after Algo|
                 if(trackRobot)
                     pathTranslator.translatePath(message.split("\\|")[1]);
-//                pathTranslator.altTranslation(message.split("\\|")[1]);
+//                pathTranslator.altTranslation(message.split("\\|")[1]);   // last min addition - untested
             }
         }
     };
-
-    public int[] getClosestObstacle(ArrayList<int[]> obstacleList, int[] getCurCoords) {
-        if(obstacleList.size()==0){
-            return null;
-        }
-        int coords_X = getCurCoords[0];
-        int coords_Y = getCurCoords[1];
-        int smallest_index = 0;
-        int trackSmallestDistance_X = 10000000;
-        int trackSmallestDistance_Y = 10000000;
-        for (int i = 0; i < obstacleList.size(); i++) {
-            if (trackSmallestDistance_X > Math.abs(obstacleList.get(i)[0] - coords_X)) {
-                if (trackSmallestDistance_Y > Math.abs(obstacleList.get(i)[1] - coords_Y)) {
-                    smallest_index = i;
-                    trackSmallestDistance_X = Math.abs(obstacleList.get(i)[0] - coords_X);
-                    trackSmallestDistance_Y = Math.abs(obstacleList.get(i)[1] - coords_Y);
-                }
-            }
-        }
-        return obstacleList.get(smallest_index);
-    }
-
-    public boolean checkIfXWithinGrid(int coord){
-        return coord > 1 && coord < 21;
-    }
-
-    public boolean checkIfYWithinGrid(int coord){
-        return coord > -1 && coord <20;
-    }
-
-    public void updateCoord(int coordX, int coordY){
-        g_coordX = coordX;
-        g_coordY = coordY;
-    }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){

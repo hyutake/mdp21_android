@@ -286,11 +286,6 @@ public class MappingFragment extends Fragment {
                 gridMap.setObstacleCoord(7+1, 14+1);
                 gridMap.setObstacleCoord(15+1, 4+1);
                 gridMap.setObstacleCoord(12+1, 9+1);
-//                gridMap.setObstacleCoord(5+1, 9+1, "","");
-//                gridMap.setObstacleCoord(15+1, 15+1, "","");
-//                gridMap.setObstacleCoord(7+1, 14+1, "","");
-//                gridMap.setObstacleCoord(15+1, 4+1, "", "");
-//                gridMap.setObstacleCoord(12+1, 9+1, "", "");
                 gridMap.invalidate();
                 showLog("Exiting updateButton");
             }

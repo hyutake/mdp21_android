@@ -30,7 +30,6 @@ public class BluetoothCommunications extends Fragment {
     StringBuilder messages;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

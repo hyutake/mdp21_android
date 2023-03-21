@@ -16,7 +16,7 @@ public class PathTranslator {
     private static final int RIGHT_TURNING_RADIUS = 34;
     private static final int BLEFT_TURNING_RADIUS = 25;
     private static final int BRIGHT_TURNING_RADIUS = 35;
-//    private static final int TURNING_RADIUS = 33;   // to estimate the cells covered in an executed turn
+//    private static final int TURNING_RADIUS = 33;   // to estimate the cells covered in an executed turn (removed because turning radius differs for all turns)
 
     // for altTranslation
     private int curX, curY;

@@ -115,7 +115,6 @@ public class ControlFragment extends Fragment {
                         updateStatus("moving forward");
                     else
                         updateStatus("Unable to move forward");
-//                    MainActivity.printMessage("STM|Forward");
                     MainActivity.printMessage("f");
                 }
                 else
@@ -131,7 +130,6 @@ public class ControlFragment extends Fragment {
                 if (gridMap.getCanDrawRobot()) {
                     gridMap.moveRobot("right");
                     MainActivity.refreshLabel();
-//                    MainActivity.printMessage("STM|Right");
                     MainActivity.printMessage("r");
                     System.out.println(Arrays.toString(gridMap.getCurCoord()));
                 }
@@ -152,7 +150,6 @@ public class ControlFragment extends Fragment {
                         updateStatus("moving backward");
                     else
                         updateStatus("Unable to move backward");
-//                    MainActivity.printMessage("STM|Back");
                     MainActivity.printMessage("b");
                 }
                 else
@@ -169,7 +166,6 @@ public class ControlFragment extends Fragment {
                     gridMap.moveRobot("left");
                     MainActivity.refreshLabel();
                     updateStatus("turning left");
-//                    MainActivity.printMessage("STM|Left");
                     MainActivity.printMessage("l");
                 }
                 else
@@ -199,13 +195,6 @@ public class ControlFragment extends Fragment {
                     MainActivity.stopTimerFlag = false;
                     showToast("Auto Movement/ImageRecog timer start!");
 
-                    //TESTING
-//                        for(int i = 12; i <= 15; i += 1){
-//                            int col = 5;
-//                            String text = "FORWARD|5," + Integer.toString(i) + ",Direction.SOUTH";
-//                            BluetoothCommunications.getMessageReceivedTextView().append(text+"\n");
-//                            gridMap.updateRobot(col, i, "down");
-//                        }
                     robotStatusTextView.setText("Auto Movement Started");
                     exploreTimer = System.currentTimeMillis();
                     timerHandler.postDelayed(timerRunnableExplore, 0);
