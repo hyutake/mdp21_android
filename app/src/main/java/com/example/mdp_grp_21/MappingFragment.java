@@ -30,7 +30,7 @@ public class MappingFragment extends Fragment {
     ToggleButton setStartPointToggleBtn;
     ImageView emergencyBtn; // testing
     int clicks = 0;
-    final int THRESHOLD = 4;    // no. of clicks before triggering
+    final int THRESHOLD = 5;    // no. of clicks before triggering
     GridMap gridMap;
 
     Switch dragSwitch;
@@ -52,7 +52,7 @@ public class MappingFragment extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.activity_map_config_alt, container,  false);
+        View root = inflater.inflate(R.layout.activity_map_config, container,  false);
 
         gridMap = MainActivity.getGridMap();
         final DirectionsFragment directionFragment = new DirectionsFragment();
@@ -96,20 +96,26 @@ public class MappingFragment extends Fragment {
                         path = "RR";
                         showLog("Set eBtn to snor_3!");
                         break;
+                    case 4:
+                        emergencyBtn.setImageDrawable(getResources().getDrawable(R.drawable.snor_4));
+                        path = "G";
+                        showLog("Set eBtn to snor_4!");
+                        break;
                     default:    // should NOT occur
                         showLog("Click count error!!");
                 }
+                // Display "hidden" message in chat box - in case you forget what each image represents
                 MainActivity.refreshMessageReceivedNS(path);
 //                if(clicks >= THRESHOLD) {
                     // emergency protocol
 
-                    // manual input of obstacles - quite shit tbh, removed
+                    // manual input of obstacles - quite shit tbh
 //                    showLog("Entered emergencyProtocol");
 //                    emergencyFragment.show(getChildFragmentManager(),
 //                            "Emergency");
 //                    showLog("Exiting emergencyProtocol");
 
-                    // new protocol: to track robot or not
+                    // last minute new protocol: to track robot or not
 //                    MainActivity.toggleTrackRobot();
 //                    showToast("trackRobot: " + MainActivity.getTrackRobot());
 //                    MainActivity.refreshMessageReceivedNS("trackRobot: " + MainActivity.getTrackRobot());
@@ -155,7 +161,6 @@ public class MappingFragment extends Fragment {
             }
         });
 
-        // TODO: Need to disable all other on touch function if activated
         setStartPointToggleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
     public static boolean stopTimerFlag = false;
     public static boolean stopWk9TimerFlag = false;
 
-    public static boolean trackRobot = false;
+    public static boolean trackRobot = true;
 
     private int g_coordX;
     private int g_coordY;
@@ -154,9 +154,9 @@ public class MainActivity extends AppCompatActivity {
     public static ImageButton getRightBtn() { return rightBtn; }
     public static TextView getBluetoothStatus() { return bluetoothStatus; }
     public static TextView getConnectedDevice() { return bluetoothDevice; }
+    // For week 8
     public static boolean getTrackRobot() { return trackRobot; }
     public static void toggleTrackRobot() { trackRobot = !trackRobot; }
-
 
     public static void sharedPreferences() {
         sharedPreferences = MainActivity.getSharedPreferences(MainActivity.context);
@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
     public static void printCoords(String message){
         showLog("Displaying Coords untranslated and translated");
         showLog(message);
-        String[] strArr = message.split("-",2);
+        String[] strArr = message.split("_",2);
 
         // Translated ver is sent
         if (BluetoothConnectionService.BluetoothConnectionStatus == true){
@@ -185,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         showLog("Exiting printCoords");
     }
 
-    // Send message to bluetooth
+    // Send message to bluetooth (not shown on chat box)
     public static void printMessage(String message) {
         showLog("Entering printMessage");
         editor = sharedPreferences.edit();
@@ -195,10 +195,10 @@ public class MainActivity extends AppCompatActivity {
             BluetoothConnectionService.write(bytes);
         }
         showLog(message);
-//        refreshMessageReceivedNS(message);
         showLog("Exiting printMessage");
     }
 
+    // Purely to display a message on the chat box - NOT SENT via BT
     public static void refreshMessageReceivedNS(String message){
         BluetoothCommunications.getMessageReceivedTextView().append(message+ "\n");
     }

@@ -204,7 +204,6 @@ public class PathTranslator {
         showLog("Exited altTranslation");
     }
 
-    // TODO: Maybe find an alt. way to display message on chatbox without actually sending it
     public void translatePath(String stmCommand) {
         showLog("Entered translatePath");
         char commandType = stmCommand.charAt(0);

@@ -104,7 +104,7 @@ public class BluetoothSetUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bluetooth_alt);
+        setContentView(R.layout.bluetooth);
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -116,7 +116,6 @@ public class BluetoothSetUp extends AppCompatActivity {
 
         connectBtn = findViewById(R.id.connectBtn);
 
-        // TODO: Not in use?
         int width = dm.widthPixels;
         int height = dm.heightPixels;
 

@@ -27,6 +27,8 @@ import androidx.fragment.app.Fragment;
 import java.util.UUID;
 import java.util.zip.Inflater;
 
+// NOTE: THIS HAS BEEN REMOVED - NOT IN USE IN FINAL APP
+// This was made for redundancy - in case an obstacle can't be placed properly, this is a slightly faster way to get the right syntax to manually send to RPi
 public class EmergencyFragment extends DialogFragment {
     private static final String TAG = "EmergencyFragment";
     View rootView;

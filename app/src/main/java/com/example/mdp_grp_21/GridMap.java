@@ -666,8 +666,7 @@ public class GridMap extends View{
 
         int obstacleNumber = GridMap.obstacleCoord.size();
 
-        // DEBUG //
-        // TODO: remove debug message for obstacle coord (to test)
+        // DEBUG msg (can remove) //
         MainActivity.printMessage("COORD of Obstacle ID " + obstacleNumber + ":" + (col - 1) + "," + (19 - row) + ", Bearing: " + imageBearings.get(19 - row)[col - 1]);
     }
 
@@ -934,7 +933,7 @@ public class GridMap extends View{
                             showLog("newID = " + newID);
                             showLog("newBearing = " + newBearing);
                             MainActivity.printMessage("COORD of Image ID " + newID + ":" + (tCol - 1) + "," + (tRow - 1) + ", Bearing: " + newBearing);
-                            String oldObstacleId = UUID.randomUUID().toString(); // TODO generate random string id
+                            String oldObstacleId = UUID.randomUUID().toString();
                             if (val2IdxMap.containsKey(oldItem)) {
                                 oldObstacleId = val2IdxMap.get(oldItem);
                             }
@@ -1584,7 +1583,7 @@ public class GridMap extends View{
         showLog("Exit performAlgoCommand");
     }
 
-    // TODO: Modify this for algo side (algoX, algoY, algoDirection, algoObsId) and then test it on AMD (can't detect android rn :/)
+    // Modified for algo side (algoX, algoY, algoDirection, algoObsId)
     public String translateCoord(String msg){
         String translatedMsg = "";
         // split msg by '|'
@@ -1620,7 +1619,7 @@ public class GridMap extends View{
             if(i < msgSections.length - 1) translatedMsg += "|";  // add separator for all obstacles except the last
         }
 
-        return msg + "-ALG|" + translatedMsg;
+        return msg + "_ALG|" + translatedMsg;
     }
 
     public static String saveObstacleList(){    // used for the save/load map functionality
@@ -1643,7 +1642,7 @@ public class GridMap extends View{
             // check if its an obstacle or an image
             int col = obstacleCoord.get(i)[0];
             int row = obstacleCoord.get(i)[1];
-            // TODO: Tweak logic to allow for position of obstacles w/o images to also be sent over
+            // Additional redundant logic to allow for position of obstacles w/o images to also be sent over
             msg += (col + ","     // x
                     + row + ","   // y
                     + imageBearings.get(obstacleCoord.get(i)[1])[obstacleCoord.get(i)[0]].charAt(0) + ",");   // direction

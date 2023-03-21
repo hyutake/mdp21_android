@@ -215,7 +215,7 @@ public class BluetoothConnectionService {
             inStream = tmpIn;
             outStream = tmpOut;
         }
-        // TODO: fix logic if possible (sometimes messages are sent 1 char at a time)
+        // Logic is a bit wonky - good to fix if possible (sometimes messages are sent 1 char at a time)
         public void run() {
             byte[] buffer = new byte[1024];
             int bytes;

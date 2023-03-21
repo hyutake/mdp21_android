@@ -178,7 +178,7 @@ public class ControlFragment extends Fragment {
             }
         });
 
-        // TODO: Start Week 8 challenge
+        // Start Week 8 challenge
         exploreButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -229,26 +229,9 @@ public class ControlFragment extends Fragment {
                 }
                 else if (fastestToggleBtn.getText().equals("STOP")) {
                     showToast("Fastest car timer start!");
-                    // TODO: settle comms protocol w/ rpi
                     try {
-                        refreshMessageReceivedNS("START\n");
-                        // for more specific messages - delete if not needed
-//                        switch(MappingFragment.path) {
-//                            case "LL":
-//                                MainActivity.printMessage("STM|LL");
-//                                break;
-//                            case "LR":
-//                                MainActivity.printMessage("STM|LR");
-//                                break;
-//                            case "RL":
-//                                MainActivity.printMessage("STM|RL");
-//                                break;
-//                            case "RR":
-//                                MainActivity.printMessage("STM|RR");
-//                                break;
-//                        }
-                        MainActivity.printMessage("STM|" + MappingFragment.path);
-//                        MainActivity.printMessage("{\"forward_to\":\"STM\",\"message\":\"Start\"}");
+                        refreshMessageReceivedNS("WEEK 9 START\n");
+                        MainActivity.printMessage(MappingFragment.path);
                     } catch (Exception e) {
                         showLog(e.getMessage());
                     }
